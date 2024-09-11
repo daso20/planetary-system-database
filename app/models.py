@@ -17,6 +17,7 @@ class Planets(Base):
     __tablename__ = "planets"
 
     name: Mapped[str] = mapped_column(primary_key=True)
+    planet_id: Mapped[int] = mapped_column(ForeignKey("planetary_system.id"))
     equatorial_diameter: Mapped[str] = mapped_column(String(30))  
     mass: Mapped[str] = mapped_column(String(30))  
     semi_major_axis: Mapped[str] = mapped_column(String(30))  
@@ -27,4 +28,4 @@ class Planets(Base):
     confirmed_moons: Mapped[str] = mapped_column(String(30))  
     axial_tilt: Mapped[str] = mapped_column(String(30))  
     rings: Mapped[str] = mapped_column(String(30))  
-    atmosphere: Mapped[str] = mapped_column(String(30))  
+    atmosphere: Mapped[str] = mapped_column(String(30))
