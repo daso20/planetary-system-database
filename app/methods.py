@@ -1,8 +1,12 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from connection import engine
-from models import Base, PlanetarySystem, Planets
+from models import PlanetarySystem, Planets
+from utils import FormatCSVData
 
+## Planetary system specific methods
+def AddPlanetarySystem(ps_name, id):
+    pass
 
 ## Planet specific methods
 def GetPlanet(planet_name):
@@ -10,7 +14,8 @@ def GetPlanet(planet_name):
         stmt = select(Planets).where(Planets.name.in_([planet_name]))
         planet = session.scalars(stmt).first()
         if planet == None:
-            print("Planet could not be found in database")
+            print(f"Planet {planet_name} could not be found in database")
+            return None
         return planet
 
 ## "planet_parameters" needs to be entered as the following:
@@ -19,8 +24,9 @@ def AddPlanet(planet_parameters, planetary_system_id):
     with Session(engine) as session:
         dict_of_parameters = {}
         i = 0
+        list_of_parameters = ['name', 'equatorial_diameter', 'mass', 'semi_major_axis', 'orbital_period', 'inclination_to_suns_equator', 'orbital_eccentricity', 'rotation_period', 'confirmed_moons', 'axial_tilt', 'rings', 'atmosphere']
         for parameter in planet_parameters:
-            dict_of_parameters[parameter] = planet_parameters[i]
+            dict_of_parameters[list_of_parameters[i]] = parameter
             i += 1
         dict_of_parameters['planetary_system_id'] = planetary_system_id
         session_object = Planets(**dict_of_parameters)
@@ -28,8 +34,6 @@ def AddPlanet(planet_parameters, planetary_system_id):
         session.commit()
 
         return None
-
-## Add planets from CSV
 
 def UpdatePlanet(planet_name, parameter, value):
     with Session(engine) as session:
@@ -44,4 +48,12 @@ def UpdatePlanet(planet_name, parameter, value):
         return planet
 
 def DeletePlanet(planet_name):
-    pass
+    with Session(engine) as session:
+        stmt = session.query(Planets).filter(Planets.name == planet_name).first()
+        if stmt == None:
+            print(f"Planet {planet_name} does not exist in database")
+            return "Error"
+        else:
+            session.delete(stmt)
+            session.commit()
+            return None

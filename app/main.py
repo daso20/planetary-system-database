@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from connection import engine
 from models import Base, PlanetarySystem, Planets
 from utils import FormatCSVData
+from methods import AddPlanetarySystem
 
 ## Creates tables if they don't exist
 Base.metadata.create_all(engine)

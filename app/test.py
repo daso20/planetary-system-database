@@ -1,4 +1,4 @@
-from methods import GetPlanet, AddPlanet, UpdatePlanet
+from methods import GetPlanet, AddPlanet, UpdatePlanet, DeletePlanet
 
 def test_Get():
     result = GetPlanet('Venus')
@@ -9,3 +9,14 @@ def test_Update():
     result = GetPlanet('Venus')
     assert result.mass == "2.82"
     UpdatePlanet('Venus', 'mass', '0.82')
+
+def test_Add_and_Delete():
+    result = GetPlanet('TestPlanet')
+    if result == None:
+        AddPlanet(['TestPlanet', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'],"1")
+        result = GetPlanet('TestPlanet')
+        assert result.attributes_as_list() == ['TestPlanet', 1, '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
+    else:
+        print('Planet "TestPlanet" already exists')
+    result = DeletePlanet('TestPlanet')
+    assert result == None
