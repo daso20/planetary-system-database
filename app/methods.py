@@ -5,8 +5,14 @@ from models import PlanetarySystem, Planets
 from utils import FormatCSVData
 
 ## Planetary system specific methods
-def AddPlanetarySystem(ps_name, id):
-    pass
+def AddPlanetarySystem(planetary_system_id, planetary_system_name):
+    with Session(engine) as session:
+        solar_system = PlanetarySystem(
+            id = planetary_system_id,
+            name = planetary_system_name
+        )
+        session.add(solar_system)
+        session.commit()
 
 ## Planet specific methods
 def GetPlanet(planet_name):
@@ -34,6 +40,12 @@ def AddPlanet(planet_parameters, planetary_system_id):
         session.commit()
 
         return None
+
+def AddPlanetsFromCSV(csv_file, planetary_system_id):
+    list_of_planets = FormatCSVData(csv_file)
+    if list_of_planets != None:
+        for planet_parameters in list_of_planets[1:]:
+            AddPlanet(planet_parameters, planetary_system_id)
 
 def UpdatePlanet(planet_name, parameter, value):
     with Session(engine) as session:

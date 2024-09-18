@@ -11,10 +11,6 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int
     clear_password: str
 
-    ## Deprecated
-    #class Config:
-    #    env_file =".env"
-
     model_config = SettingsConfigDict(env_file=".env")
 
 settings = Settings()

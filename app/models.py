@@ -8,7 +8,7 @@ class Base(DeclarativeBase):
     pass
 
 class PlanetarySystem(Base):
-    __tablename__ = "planetary_system"
+    __tablename__ = "planetary_systems"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(30))
@@ -20,7 +20,7 @@ class Planets(Base):
     __tablename__ = "planets"
 
     name: Mapped[str] = mapped_column(primary_key=True)
-    planetary_system_id: Mapped[int] = mapped_column(ForeignKey("planetary_system.id"))
+    planetary_system_id: Mapped[int] = mapped_column(ForeignKey("planetary_systems.id"))
     equatorial_diameter: Mapped[str] = mapped_column(String(30))  
     mass: Mapped[str] = mapped_column(String(30))  
     semi_major_axis: Mapped[str] = mapped_column(String(30))  
