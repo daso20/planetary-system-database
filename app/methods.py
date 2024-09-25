@@ -11,22 +11,33 @@ def AddPlanetarySystem(planetary_system_id, planetary_system_name):
             id = planetary_system_id,
             name = planetary_system_name
         )
-        session.add(solar_system)
-        session.commit()
+        stmt = select(PlanetarySystem).where(PlanetarySystem.name == planetary_system_name)
+        ps = session.scalars(stmt).first()
+        if ps == None:
+            session.add(solar_system)
+            session.commit()
+        else:
+            print(f"Planetary system '{planetary_system_name}' already exists")
 
 ## Planet specific methods
-def GetPlanet(planet_name):
+def GetPlanet(planet_name, only_test=True):
     with Session(engine) as session:
         stmt = select(Planets).where(Planets.name.in_([planet_name]))
         planet = session.scalars(stmt).first()
-        if planet == None:
-            print(f"Planet {planet_name} could not be found in database")
+        if planet == None and only_test:
+            print(f"Planet '{planet_name}' could not be found in database")
+            return None
+        elif planet == None:
             return None
         return planet
 
 ## "planet_parameters" needs to be entered as the following:
 ## ['Earth', '1', '1', '1', '1', '7.25', '0.017', '1', '1', '23.44', 'no', 'N2, O2, Ar']
 def AddPlanet(planet_parameters, planetary_system_id):
+    planet_test = GetPlanet(planet_parameters[0], only_test=False)
+    if planet_test != None:
+        print(f"Planet '{planet_parameters[0]}' already exists")
+        return None
     with Session(engine) as session:
         dict_of_parameters = {}
         i = 0
