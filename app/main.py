@@ -12,4 +12,3 @@ filepath = path.abspath(path.join(basepath, "..", "solarsystemplanets.csv"))
 
 AddPlanetarySystem(1, "Solar System")
 AddPlanetsFromCSV(filepath, 1)
-#AddPlanetsFromCSV("filepath", 1)

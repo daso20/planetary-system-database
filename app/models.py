@@ -36,4 +36,3 @@ class Planets(Base):
     
     def  attributes_as_list(self):
         return [self.name, self.planetary_system_id, str(self.equatorial_diameter), str(self.mass), str(self.semi_major_axis), str(self.orbital_period), str(self.inclination_to_suns_equator), str(self.orbital_eccentricity), str(self.rotation_period), str(self.confirmed_moons), str(self.axial_tilt), self.rings, self.atmosphere]
-    
