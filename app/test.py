@@ -1,4 +1,17 @@
-from methods import GetPlanet, AddPlanet, UpdatePlanet, DeletePlanet
+from connection import engine
+from models import Base
+from os import path
+from methods import AddPlanetarySystem, GetPlanet, AddPlanet, AddPlanetsFromCSV, UpdatePlanet, DeletePlanet
+
+## Creates tables if they don't exist
+Base.metadata.create_all(engine)
+
+## Adds solar system/planets from example CSV file
+basepath = path.dirname(__file__)
+filepath = path.abspath(path.join(basepath, "..", "solarsystemplanets.csv"))
+
+AddPlanetarySystem(1, "Solar System")
+AddPlanetsFromCSV(filepath, 1)
 
 def test_Get():
     result = GetPlanet('Venus')
