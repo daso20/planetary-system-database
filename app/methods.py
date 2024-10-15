@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import select, exc
 from sqlalchemy.orm import Session
 from connection import engine
 from models import PlanetarySystem, Planets
@@ -48,7 +48,14 @@ def AddPlanet(planet_parameters, planetary_system_id):
         dict_of_parameters['planetary_system_id'] = planetary_system_id
         session_object = Planets(**dict_of_parameters)
         session.add(session_object)
-        session.commit()
+        try:
+            session.commit()
+        except exc.IntegrityError as e:
+            print(f"An integrity error occurred: {e}\n")
+            print("Please check that you don't violate any constrains")
+        except exc.DataError as e:
+                print(f"A data error occurred: {e}\n")
+                print("Please check that you have entered the correct type of data")
 
         return None
 
@@ -67,7 +74,12 @@ def UpdatePlanet(planet_name, parameter, value):
             raise AttributeError(f"'{parameter}' is not a valid attribute of Planets")
         else:
             setattr(planet, parameter, value)
-            session.commit()
+            try:
+                session.commit()
+            except exc.DataError as e:
+                print(f"A data error occurred: {e}\n")
+                print("Please check that you have entered the correct type of data")
+
         return planet
 
 def DeletePlanet(planet_name):

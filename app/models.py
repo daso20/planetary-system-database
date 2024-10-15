@@ -31,7 +31,7 @@ class Planets(Base):
     rings: Mapped[str] = mapped_column(String(30))  
     atmosphere: Mapped[str] = mapped_column(String(30))
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return f"Planets(name={self.name!r}, planetary_system_id={self.planetary_system_id!r}, equatorial_diameter={self.equatorial_diameter!r}, mass={self.mass!r}, semi_major_axis={self.semi_major_axis!r}, orbital_period={self.orbital_period!r}, inclination_to_suns_equator={self.inclination_to_suns_equator!r}, orbital_eccentricity={self.orbital_eccentricity!r}, rotation_period={self.rotation_period!r}, confirmed_moons={self.confirmed_moons!r}, axial_tilt={self.axial_tilt!r}, rings={self.rings!r}, atmosphere={self.atmosphere!r})"
     
     def  attributes_as_list(self):
