@@ -1,9 +1,6 @@
 from argparse import ArgumentParser
 from methods import *
 
-def testFunc():
-    print("eu")
-
 def AddPlanetCLI(*args):
     planet_values = list(args)[:-1]
     planetary_system = list(args)[-1]
@@ -43,12 +40,6 @@ update_parser.set_defaults(func=UpdatePlanet)
 delete_parser = subparsers.add_parser("delete", help="delete planet from database")
 delete_parser.add_argument(dest="provided_args", nargs=1)
 delete_parser.set_defaults(func=DeletePlanet)
-
-test_parser = subparsers.add_parser("test", help="method for troubleshooting")
-test_parser.add_argument('name')
-test_parser.add_argument('rings')
-test_parser.add_argument('planetary_system_id')
-test_parser.set_defaults(func=testFunc)
 
 args = global_parser.parse_args()
 
