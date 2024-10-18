@@ -2,7 +2,7 @@ from sqlalchemy import select, exc
 from sqlalchemy.orm import Session
 from connection import engine
 from models import PlanetarySystem, Planets
-from utils import FormatCSVData
+from utils import FormatCSVData, is_number
 
 ## Planetary system specific methods
 def AddPlanetarySystem(planetary_system_id, planetary_system_name):
@@ -29,11 +29,17 @@ def GetPlanet(planet_name, only_test=True):
             return None
         elif planet == None:
             return None
+        
         return planet
 
 ## "planet_parameters" needs to be entered as the following:
 ## ['Earth', '1', '1', '1', '1', '7.25', '0.017', '1', '1', '23.44', 'no', 'N2, O2, Ar']
 def AddPlanet(planet_parameters, planetary_system_id):
+    result = is_number(planet_parameters[0])
+    if result == True:
+        print(f"Planet name must a string ('{planet_parameters[0]}' provided)")
+        return None
+    
     planet_test = GetPlanet(planet_parameters[0], only_test=False)
     if planet_test != None:
         print(f"Planet '{planet_parameters[0]}' already exists")
@@ -51,11 +57,12 @@ def AddPlanet(planet_parameters, planetary_system_id):
         try:
             session.commit()
         except exc.IntegrityError as e:
-            print(f"An integrity error occurred: {e}\n")
-            print("Please check that you don't violate any constrains")
+            print(f"An integrity error occurred: " + str(e).split("\n")[1])
+            print()
         except exc.DataError as e:
-                print(f"A data error occurred: {e}\n")
-                print("Please check that you have entered the correct type of data")
+            print(f"A data error occurred: " + str(e).split("\n")[0])
+            print(str(e).split("\n")[1])
+            print(str(e).split("\n")[2])
 
         return None
 
@@ -71,14 +78,15 @@ def UpdatePlanet(planet_name, parameter, value):
         planet = session.scalars(stmt).one()
 
         if not hasattr(planet, parameter):
-            raise AttributeError(f"'{parameter}' is not a valid attribute of Planets")
+            print(f"'{parameter}' is not a valid attribute of Planets")
         else:
             setattr(planet, parameter, value)
             try:
                 session.commit()
             except exc.DataError as e:
-                print(f"A data error occurred: {e}\n")
-                print("Please check that you have entered the correct type of data")
+                print(f"A data error occurred: " + str(e).split("\n")[0])
+                print(str(e).split("\n")[1])
+                print(str(e).split("\n")[2])
 
         return planet
 
