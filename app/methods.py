@@ -11,8 +11,6 @@ def GetPlanetarySystems():
         stmt = select(PlanetarySystem)
         systems = session.scalars(stmt).all()
         return systems
-        #for ps in systems:
-        #    print(ps.attributes_as_list())
 
 def GetPlanetsFromPS(planetary_system_name):
     with Session(engine) as session:
@@ -25,8 +23,6 @@ def GetPlanetsFromPS(planetary_system_name):
         else:
             stmt2 = select(Planets).where(Planets.planetary_system_id == ps.id)
             planets = session.scalars(stmt2).all()
-            #for planet in planets:                      
-            #    print(planet.attributes_as_list())      
             return planets
 
 def AddPlanetarySystem(planetary_system_id, planetary_system_name):
