@@ -1,10 +1,34 @@
 from sqlalchemy import select, exc
 from sqlalchemy.orm import Session
+from psycopg2 import errors
 from connection import engine
 from models import PlanetarySystem, Planets
 from utils import FormatCSVData, is_number
 
 ## Planetary system specific methods
+def GetPlanetarySystems():
+    with Session(engine) as session:
+        stmt = select(PlanetarySystem)
+        systems = session.scalars(stmt).all()
+        return systems
+        #for ps in systems:
+        #    print(ps.attributes_as_list())
+
+def GetPlanetsFromPS(planetary_system_name):
+    with Session(engine) as session:
+        stmt1 = select(PlanetarySystem).where(PlanetarySystem.name == planetary_system_name)
+        ps = session.scalars(stmt1).first()
+        
+        if ps == None:
+            print(f"Planetary system '{planetary_system_name}' does not exists")
+            return None
+        else:
+            stmt2 = select(Planets).where(Planets.planetary_system_id == ps.id)
+            planets = session.scalars(stmt2).all()
+            #for planet in planets:                      
+            #    print(planet.attributes_as_list())      
+            return planets
+
 def AddPlanetarySystem(planetary_system_id, planetary_system_name):
     with Session(engine) as session:
         solar_system = PlanetarySystem(
@@ -15,9 +39,31 @@ def AddPlanetarySystem(planetary_system_id, planetary_system_name):
         ps = session.scalars(stmt).first()
         if ps == None:
             session.add(solar_system)
-            session.commit()
+            try:
+                session.commit()
+            except exc.DataError as e:
+                print(f"Data type error occurred: " + str(e).split("\n")[0])
+                print(str(e).split("\n")[1])
+                print(str(e).split("\n")[2])
         else:
             print(f"Planetary system '{planetary_system_name}' already exists")
+
+def DeletePlanetarySystem(planetary_system_name):
+    result = GetPlanetsFromPS(planetary_system_name)
+    if result == []:
+        with Session(engine) as session:
+            stmt = session.query(PlanetarySystem).filter(PlanetarySystem.name == planetary_system_name).first()
+            if stmt == None:
+                print(f"Planetary system '{planetary_system_name}' does not exist in database")
+                return "Error"
+            else:
+                session.delete(stmt)
+                session.commit()
+                return None
+    else:
+        print(f"Delete unsuccessful. Planets still present under planetary system '{planetary_system_name}'")
+        return "Error"
+
 
 ## Planet specific methods
 def GetPlanet(planet_name, only_test=True):

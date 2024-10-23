@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from methods import *
+from methods import GetPlanet, AddPlanet, AddPlanetsFromCSV, UpdatePlanet, DeletePlanet
 
 def AddPlanetCLI(*args):
     planet_values = list(args)[:-1]
@@ -9,7 +9,7 @@ def AddPlanetCLI(*args):
 global_parser = ArgumentParser(prog="planets-cli")
 
 subparsers = global_parser.add_subparsers(
-    title="Available options", help="Available methods to interact with database"
+    title="Available options", help="Available planet methods to interact with database"
 )
 
 get_parser = subparsers.add_parser("get", help="get planet from database")
