@@ -1,6 +1,5 @@
 from sqlalchemy import select, exc
 from sqlalchemy.orm import Session
-from psycopg2 import errors
 from connection import engine
 from models import PlanetarySystem, Planets
 from utils import FormatCSVData, is_number

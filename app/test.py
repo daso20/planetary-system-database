@@ -10,6 +10,7 @@ Base.metadata.create_all(engine)
 basepath = path.dirname(__file__)
 filepath = path.abspath(path.join(basepath, "..", "solarsystemplanets.csv"))
 
+## Add data for tests
 AddPlanetarySystem(1, "Solar System")
 AddPlanetsFromCSV(filepath, 1)
 

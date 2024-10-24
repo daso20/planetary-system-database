@@ -1,3 +1,5 @@
 __pycache__
 psd_venv/
+test_env/
+db/
 .env

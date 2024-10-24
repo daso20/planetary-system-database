@@ -6,10 +6,6 @@ class Settings(BaseSettings):
     database_username: str
     database_name: str
     database_password: str
-    secret_key: str
-    algorithm: str
-    access_token_expire_minutes: int
-    clear_password: str
 
     model_config = SettingsConfigDict(env_file=".env")
 
