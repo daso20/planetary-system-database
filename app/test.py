@@ -13,6 +13,7 @@ filepath = path.abspath(path.join(basepath, "..", "solarsystemplanets.csv"))
 ## Add data for tests
 AddPlanetarySystem(1, "Solar System")
 AddPlanetsFromCSV(filepath, 1)
+AddPlanet(['TestPlanet2', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'],"2")
 
 def test_Get_And_Add_PS():
     AddPlanetarySystem(2, "Test System")
@@ -49,7 +50,7 @@ def test_Get_Planets_PS():
     result = GetPlanet('TestPlanet2')
     if result == None:
         AddPlanet(['TestPlanet2', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'],"2")
-        result = GetPlanetsFromPS("Test system")
     else:
         print('Planet "TestPlanet2" already exists')
-    assert result.attributes_as_list() == ['TestPlanet2', 2, '1.000', '1.000', '1.000', '1.000', '1.000', '1.000', '1.000', '1.000', '1.000', '1', '1']
+    result = GetPlanetsFromPS("Test System")
+    assert result[0].attributes_as_list() == ['TestPlanet2', 2, '1.000', '1.000', '1.000', '1.000', '1.000', '1.000', '1.000', '1.000', '1.000', '1', '1']
