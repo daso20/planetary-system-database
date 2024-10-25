@@ -63,6 +63,12 @@ positional arguments:
   parameter
   value
 
+
 options:
   -h, --help   show this help message and exit
+```
+
+A test.py file is present in the project to test if the commands are working as expected. Here is the command to test it:
+```
+python -m pytest app\test.py -vv
 ```
