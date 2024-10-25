@@ -23,7 +23,7 @@ DATABASE_USERNAME=
 DATABASE_PASSWORD=
 ```
 
-A Postgres database instance is required to hold and manage the data. The project has a _docker-compose.yml_ file to create an instance of a Postgres database in Docker. Here is the command to deploy it: 
+A Postgres database instance is required to store and manage the data. The project has a _docker-compose.yml_ file to create an instance of a Postgres database in Docker. Here is the command to deploy it: 
 ```
 docker-compose build && docker-compose up -d
 ```
