@@ -14,7 +14,16 @@ Available commands:
 - planets-cli: command to interact with planets
 
 ## Deployment
-The Python modules specified in the _requirements.txt_ file need to be installed into the working environment in order to run the scripts.
+The Python modules specified in the _requirements.txt_ file need to be installed into the working environment in order to run the scripts. This requires to install previously the dependencies for **psycopg2**. This dependes on the Linux version the project will be deployed. For example:
+- For **Ubuntu/Debian**:
+```
+sudo apt-get update
+sudo apt-get install libpq-dev python3-dev build-essential
+```
+- For **CentOS/RHEL**:
+```
+sudo yum install postgresql-devel python3-devel gcc
+```
 
 A Postgres database instance is required to store and manage the data. The project has a _docker-compose.yml_ file to create an instance of a Postgres database in Docker. Here is the command to deploy it: 
 ```
