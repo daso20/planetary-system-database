@@ -14,6 +14,11 @@ Available commands:
 ## Deployment
 The Python modules specified in the _requirements.txt_ file need to be installed into the working environment in order to run the scripts.
 
+A Postgres database instance is required to store and manage the data. The project has a _docker-compose.yml_ file to create an instance of a Postgres database in Docker. Here is the command to deploy it: 
+```
+docker-compose build && docker-compose up -d
+```
+
 An _.env_ file needs to be created in the main directory of the project to access the database. It requires the following parameters:
 ```
 DATABASE_HOSTNAME=
@@ -21,11 +26,6 @@ DATABASE_PORT=
 DATABASE_NAME=
 DATABASE_USERNAME=
 DATABASE_PASSWORD=
-```
-
-A Postgres database instance is required to store and manage the data. The project has a _docker-compose.yml_ file to create an instance of a Postgres database in Docker. Here is the command to deploy it: 
-```
-docker-compose build && docker-compose up -d
 ```
 
 ## Usage
@@ -68,7 +68,7 @@ options:
   -h, --help   show this help message and exit
 ```
 
-A test.py file is present in the project to test if the commands are working as expected. Here is the command to test it:
+A test.py file is present in the project to test if the commands are working as expected after setting up the environment. Here is the command to execute it:
 ```
 python -m pytest app\test.py -vv
 ```
