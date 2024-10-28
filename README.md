@@ -14,7 +14,7 @@ Available commands:
 - planets-cli: command to interact with planets
 
 ## Deployment
-The Python modules specified in the _requirements.txt_ file need to be installed into the working environment in order to run the scripts. This requires to install previously the dependencies for **psycopg2**. This dependes on the Linux version the project will be deployed. For example:
+The Python modules specified in the _requirements.txt_ file need to be installed into the working environment in order to run the scripts. This requires to previously install the dependencies for **psycopg2**. This depends on the Linux flavor the project will be deployed on. For example:
 - For **Ubuntu/Debian**:
 ```
 sudo apt-get update
