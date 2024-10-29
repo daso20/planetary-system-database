@@ -2,11 +2,11 @@
 The database is based on 2 tables: **planetary_systems** and **planets**. They have the following structure:
 - planetary_systems
 ```
-id |     name
+id | name
 ```
 - planets
 ```
-name     | planetary_system_id | equatorial_diameter |  mass   | semi_major_axis | orbital_period | inclination_to_suns_equator | orbital_eccentricity | rotation_period | confirmed_moons | axial_tilt | rings | atmosphere
+name | planetary_system_id | equatorial_diameter | mass | semi_major_axis | orbital_period | inclination_to_suns_equator | orbital_eccentricity | rotation_period | confirmed_moons | axial_tilt | rings | atmosphere
 ```
 
 Available commands:
