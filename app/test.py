@@ -54,3 +54,5 @@ def test_Get_Planets_PS():
         print('Planet "TestPlanet2" already exists')
     result = GetPlanetsFromPS("Test System")
     assert result[0].attributes_as_list() == ['TestPlanet2', 2, '1.000', '1.000', '1.000', '1.000', '1.000', '1.000', '1.000', '1.000', '1.000', '1', '1']
+
+AddPlanet(['TestPlanetBO', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'],"2")

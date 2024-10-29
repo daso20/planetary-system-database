@@ -22,17 +22,17 @@ class Planets(Base):
 
     name: Mapped[str] = mapped_column(primary_key=True)
     planetary_system_id: Mapped[int] = mapped_column(ForeignKey("planetary_systems.id"))
-    equatorial_diameter: Mapped[Decimal] = mapped_column(Numeric(6,3))  
-    mass: Mapped[Decimal] = mapped_column(Numeric(6,3))  
-    semi_major_axis: Mapped[Decimal] = mapped_column(Numeric(6,3))  
-    orbital_period: Mapped[Decimal] = mapped_column(Numeric(6,3))  
-    inclination_to_suns_equator: Mapped[Decimal] = mapped_column(Numeric(6,3))  
-    orbital_eccentricity: Mapped[Decimal] = mapped_column(Numeric(6,3))  
-    rotation_period: Mapped[Decimal] = mapped_column(Numeric(6,3))  
-    confirmed_moons: Mapped[Decimal] = mapped_column(Numeric(6,3))  
-    axial_tilt: Mapped[Decimal] = mapped_column(Numeric(6,3))  
-    rings: Mapped[str] = mapped_column(String(30))  
-    atmosphere: Mapped[str] = mapped_column(String(30))
+    equatorial_diameter: Mapped[Decimal] = mapped_column(Numeric(6,3), nullable=True)  
+    mass: Mapped[Decimal] = mapped_column(Numeric(6,3), nullable=True)  
+    semi_major_axis: Mapped[Decimal] = mapped_column(Numeric(6,3), nullable=True)  
+    orbital_period: Mapped[Decimal] = mapped_column(Numeric(6,3), nullable=True)  
+    inclination_to_suns_equator: Mapped[Decimal] = mapped_column(Numeric(6,3), nullable=True)  
+    orbital_eccentricity: Mapped[Decimal] = mapped_column(Numeric(6,3), nullable=True)  
+    rotation_period: Mapped[Decimal] = mapped_column(Numeric(6,3), nullable=True)  
+    confirmed_moons: Mapped[Decimal] = mapped_column(Numeric(6,3), nullable=True)  
+    axial_tilt: Mapped[Decimal] = mapped_column(Numeric(6,3), nullable=True)  
+    rings: Mapped[str] = mapped_column(String(30), nullable=True)  
+    atmosphere: Mapped[str] = mapped_column(String(30), nullable=True)
 
     def __repr__(self):
         return f"Planets(name={self.name!r}, planetary_system_id={self.planetary_system_id!r}, equatorial_diameter={self.equatorial_diameter!r}, mass={self.mass!r}, semi_major_axis={self.semi_major_axis!r}, orbital_period={self.orbital_period!r}, inclination_to_suns_equator={self.inclination_to_suns_equator!r}, orbital_eccentricity={self.orbital_eccentricity!r}, rotation_period={self.rotation_period!r}, confirmed_moons={self.confirmed_moons!r}, axial_tilt={self.axial_tilt!r}, rings={self.rings!r}, atmosphere={self.atmosphere!r})"

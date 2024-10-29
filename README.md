@@ -42,13 +42,13 @@ DATABASE_PASSWORD=
 ## Usage
 The command should be called pointing to the python script:
 ```
-python app\ps-cli.py
-python app\planets-cli.py
+python app/ps-cli.py
+python app/planets-cli.py
 ```
 
 Further information on how to use the commands can be checked using the _-h_ flag. For example:
 ```
->python app\planets-cli.py -h
+>python app/planets-cli.py -h
 usage: planets-cli [-h] {get,add,addCSV,update,delete} ...
 
 options:
@@ -66,7 +66,7 @@ Available options:
 
 The same flag can also be used for each one of the arguments of the commands. For example:
 ```
->python app\planets-cli.py update -h
+>python app/planets-cli.py update -h
 usage: planets-cli update [-h] planet_name parameter value
 
 positional arguments:
@@ -81,5 +81,6 @@ options:
 
 A test.py file is present in the project to test if the commands are working as expected after setting up the environment. Here is the command to execute it:
 ```
-python -m pytest app\test.py -vv
+python -m pytest app/test.py -vv
 ```
+This would initialize the database with both tables "planetary_systems" and "planets" using data from the example CVS file "solarsystemplanets.csv"

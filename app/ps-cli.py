@@ -4,7 +4,7 @@ from methods import GetPlanetarySystems, GetPlanetsFromPS, AddPlanetarySystem, D
 global_parser = ArgumentParser(prog="planets-cli")
 
 subparsers = global_parser.add_subparsers(
-    title="Available options", help="Available planetary system methods to interact with database"
+    title="Available commands", help="Available planetary system methods to interact with database"
 )
 
 get_parser = subparsers.add_parser("getPlanSystems", help="get all planetary systems from database")

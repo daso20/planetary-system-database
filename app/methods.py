@@ -4,11 +4,15 @@ from connection import engine
 from models import PlanetarySystem, Planets
 from utils import FormatCSVData, is_number
 
+ps_columns = ['id', 'name']
+planets_columns = ['name', 'planetary_system_id', 'equatorial_diameter', 'mass', 'semi_major_axis', 'orbital_period', 'inclination_to_suns_equator', 'orbital_eccentricity', 'rotation_period', 'confirmed_moons' ,'axial_tilt','rings', 'atmosphere']
+
 ## Planetary system specific methods
 def GetPlanetarySystems():
     with Session(engine) as session:
         stmt = select(PlanetarySystem)
         systems = session.scalars(stmt).all()
+        print(ps_columns)
         return systems
 
 def GetPlanetsFromPS(planetary_system_name):
@@ -22,6 +26,7 @@ def GetPlanetsFromPS(planetary_system_name):
         else:
             stmt2 = select(Planets).where(Planets.planetary_system_id == ps.id)
             planets = session.scalars(stmt2).all()
+            print(planets_columns)
             return planets
 
 def AddPlanetarySystem(planetary_system_id, planetary_system_name):
@@ -70,7 +75,9 @@ def GetPlanet(planet_name, only_test=True):
             return None
         elif planet == None:
             return None
-        
+        else:
+            print(planets_columns)
+
         return planet
 
 ## "planet_parameters" needs to be entered as the following:
@@ -102,8 +109,11 @@ def AddPlanet(planet_parameters, planetary_system_id):
             print()
         except exc.DataError as e:
             print(f"A data error occurred: " + str(e).split("\n")[0])
-            print(str(e).split("\n")[1])
-            print(str(e).split("\n")[2])
+            if str(e).split("\n")[1] == "DETAIL:  A field with precision 6, scale 3 must round to an absolute value less than 10^3.":
+                print("DETAIL: One of the numeric values is out of range (can have a maximum of 3 digits before and after the comma for a total of 6 digits)")
+            else:
+                print(str(e).split("\n")[1])
+                print(str(e).split("\n")[2])
 
         return None
 
